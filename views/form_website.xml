@@ -1,0 +1,86 @@
+﻿<odoo>
+  <template id="website_lead_form_template" name="Website Lead Form">
+    <section class="oe_container" style="background-color: #ffdddd; padding: 30px; margin: 40px auto; width: 80%; border: 2px solid red;">
+      <div class="oe_structure">
+        <h2 class="text-center text-danger mb-4">🚗 Selecciona la Marca de tu Auto</h2>
+
+        <!-- Galería de imágenes que actúan como botones -->
+        <div class="container mb-4">
+          <div class="row text-center">
+            <div class="col-lg-3 mb-3">
+              <img src="/web/image/486-f187bcdd/mazda.png" data-brand-id="4" class="img img-fluid rounded brand-img" style="cursor:pointer; width: 80px;" alt="Mazda"/>
+            </div>
+            <div class="col-lg-3 mb-3">
+              <img src="/web/image/485-a699a499/kia.png" data-brand-id="5" class="img img-fluid rounded brand-img" style="cursor:pointer; width: 80px;" alt="Kia"/>
+            </div>
+            <div class="col-lg-3 mb-3">
+              <img src="/web/image/466-ef2b0257/nissan.png" data-brand-id="6" class="img img-fluid rounded brand-img" style="cursor:pointer; width: 80px;" alt="Nissan"/>
+            </div>
+            <div class="col-lg-3 mb-3">
+              <img src="/web/image/465-dfdb4ffb/volkswagen.png" data-brand-id="7" class="img img-fluid rounded brand-img" style="cursor:pointer; width: 80px;" alt="Volkswagen"/>
+            </div>
+            <div class="col-lg-3 mb-3">
+              <img src="/web/image/484-5974e526/hyundai.png" data-brand-id="8" class="img img-fluid rounded brand-img" style="cursor:pointer; width: 80px;" alt="Hyundai"/>
+            </div>
+            <div class="col-lg-3 mb-3">
+              <img src="/web/image/483-7a5e98c4/ford.png" data-brand-id="9" class="img img-fluid rounded brand-img" style="cursor:pointer; width: 80px;" alt="Ford"/>
+            </div>
+            <div class="col-lg-3 mb-3">
+              <img src="/web/image/487-5af4c6e4/chevrolet.png" data-brand-id="10" class="img img-fluid rounded brand-img" style="cursor:pointer; width: 80px;" alt="Chevrolet"/>
+            </div>
+            <div class="col-lg-3 mb-3">
+              <img src="/web/image/488-6e4b74ec/honda.png" data-brand-id="3" class="img img-fluid rounded brand-img" style="cursor:pointer; width: 80px;" alt="Honda"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulario -->
+        <form action="/website_lead/submit" method="POST" class="form-horizontal">
+          <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+        <!-- Marca -->
+        <div class="form-group">
+          <label class="form-label fw-bold">Marca</label>
+          <select name="brand_id" id="brand-select" class="form-control" required="required">
+            <option value="">Selecciona una marca</option>
+            <t t-foreach="brands" t-as="brand">
+              <option t-att-value="brand.id">
+                <t t-esc="brand.name"/>
+              </option>
+            </t>
+          </select>
+        </div>
+        
+        <!-- Modelo -->
+        <div class="form-group">
+          <label class="form-label fw-bold">Modelo</label>
+          <select name="model_id" id="model-select" class="form-control" required="required">
+            <option value="">Selecciona un modelo</option>
+            <!-- Este se llenará dinámicamente con JS -->
+          </select>
+        </div>
+        
+        <!-- Año -->
+        <div class="form-group">
+          <label class="form-label fw-bold">Año</label>
+          <select name="year_id" id="year-select" class="form-control" required="required">
+            <option value="">Selecciona un año</option>
+          </select>
+        </div>
+
+        <!-- Versión -->
+        <div class="form-group">
+          <label class="form-label fw-bold">Versión</label>
+          <select name="version_id" id="version-select" class="form-control" required="required">
+            <option value="">Selecciona una versión</option>
+          </select>
+        </div>
+
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-danger btn-lg">Enviar 🚀</button>
+        </div>
+        </form>
+      </div>
+    </section>   
+  </template>
+</odoo>

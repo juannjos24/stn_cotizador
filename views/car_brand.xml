@@ -1,0 +1,38 @@
+<odoo>
+  <data>
+
+    <!-- Vista tipo lista para Marcas -->
+    <record id="view_brand_list" model="ir.ui.view">
+      <field name="name">view.marca.list</field>
+      <field name="model">car.brand</field>
+      <field name="type">list</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="name"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- Vista tipo formulario para Marcas -->
+    <record id="view_brand_form" model="ir.ui.view">
+      <field name="name">view.marca.form</field>
+      <field name="model">car.brand</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Marca">
+          <group>
+            <field name="name"/>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- Acción para abrir Marcas -->
+    <record id="brand_action_window" model="ir.actions.act_window">
+      <field name="name">Marcas</field>
+      <field name="res_model">car.brand</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+  </data>
+</odoo>

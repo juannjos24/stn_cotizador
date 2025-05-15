@@ -1,0 +1,36 @@
+﻿<odoo>
+    <data>
+  
+      <!-- Menú principal -->
+      <menuitem name="Vehiculos" id="menu_servicios_root"/>
+      <!-- Categoría: Configuración -->
+    
+      <menuitem name="Configuración" id="configuracion_menu"
+                parent="menu_servicios_root"/>
+  
+      <!-- Submenú de Marcas -->
+      <menuitem name="Marcas" id="brand_menu_list"
+                parent="configuracion_menu"
+                action="brand_action_window"/>
+  
+    <!-- Submenú de Marcas -->
+      <menuitem name="Año" id="year_menu_list"
+      parent="configuracion_menu"
+      action="year_action_window"/>
+
+    
+    <!-- Submenú de Modelo -->
+    <menuitem name="Modelos" id="model_menu_list"
+    parent="configuracion_menu"
+    action="model_action_window"/>
+
+    <!-- Submenú de Version -->
+    <menuitem name="Versiones" id="version_menu_list"
+    parent="configuracion_menu"
+    action="version_action_window"/>
+
+
+
+    </data>
+  </odoo>
+  

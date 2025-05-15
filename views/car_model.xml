@@ -1,0 +1,42 @@
+<odoo>
+  <data>
+
+    <!-- Vista tipo lista para Modelo -->
+    <record id="view_model_list" model="ir.ui.view">
+      <field name="name">car.model.list</field>
+      <field name="model">car.model</field>
+      <field name="type">list</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="name"/>
+          <field name="brand_id"/>
+          <field name="year_id"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- Vista tipo formulario para Modelo -->
+    <record id="view_model_form" model="ir.ui.view">
+      <field name="name">car.model.form</field>
+      <field name="model">car.model</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Modelo de Vehículo">
+          <group>
+            <field name="name"/>
+            <field name="brand_id"/>
+            <field name="year_id"/>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- Acción para abrir Modelo -->
+    <record id="model_action_window" model="ir.actions.act_window">
+      <field name="name">Modelos</field>
+      <field name="res_model">car.model</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+  </data>
+</odoo>
