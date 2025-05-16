@@ -73,17 +73,42 @@ class WebsiteLeadController(http.Controller):
             ('brand_id', '=', int(brand_id)),
             ('year_id', '=', int(year_id))
         ])
-        return [{'id': m.id, 'name': m.name} for m in models]
 
+        # Usamos un diccionario para filtrar por nombre (o puedes usar ID si lo prefieres)
+        unique_models = {}
+        for model in models:
+            if model.name not in unique_models:
+                unique_models[model.name] = model
+
+        return [{'id': m.id, 'name': m.name} for m in unique_models.values()]
+    
     # 🔁 API: Versiones por modelo
-    @http.route('/api/versions', type='json', auth='public')
-    def get_versions_by_model(self):
+    # 🔁 API: Versiones por modelo (usando IDs)
+    @http.route('/api/versions', type='json', auth='public', csrf=False)
+    def get_versions(self):
         data = request.get_json_data()
         model_id = data.get('model_id')
-        if not model_id:
-            return []
+        year_id = data.get('year_id')
+
+        _logger.info("📥 [API] Request a /api/versions con model_id=%s, year_id=%s", model_id, year_id)
+
+        if not (model_id and year_id):
+            return {'jsonrpc': '2.0', 'id': None, 'result': []}
 
         versions = request.env['car.version'].sudo().search([
-            ('model_id', '=', int(model_id))
+            ('model_id', '=', int(model_id)),
+            ('year_id', '=', int(year_id))
         ])
-        return [{'id': v.id, 'name': v.name} for v in versions]
+
+        _logger.info("📤 [API] Versiones encontradas: %s", versions)
+
+        return {
+            'jsonrpc': '2.0',
+            'id': None,
+            'result': [{'id': v.id, 'name': v.name} for v in versions]
+        }
+
+
+
+
+
