@@ -18,15 +18,33 @@ setTimeout(() => {
 
     const fetchData = async (url, payload) => {
         console.log(`🔄 Enviando POST a ${url} con payload:`, payload);
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-        });
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
 
-        const json = await response.json();
-        console.log(`✅ Respuesta de ${url}:`, json);
-        return Array.isArray(json.result) ? json.result : [];
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const json = await response.json();
+            console.log(`✅ Respuesta de ${url}:`, json);
+            
+            // Manejar estructura anidada específica de /api/versions
+            if (url === '/api/versions' && json.jsonrpc === "2.0" && json.result && json.result.result) {
+                return json.result.result; // Extraer el array de versiones
+            }
+            // Manejar otros endpoints
+            else if (json.jsonrpc === "2.0" && json.result) {
+                return Array.isArray(json.result) ? json.result : [];
+            }
+            return Array.isArray(json) ? json : [];
+        } catch (error) {
+            console.error(`❌ Error en fetch a ${url}:`, error);
+            return [];
+        }
     };
 
     const loadYearsByBrand = async (brandId) => {
@@ -57,18 +75,29 @@ setTimeout(() => {
         });
     };
 
-    const loadVersions = async (modelId, yearId) => {
-        console.log(`🧩 Cargando versiones para model_id=${modelId}, year_id=${yearId}`);
+    const loadVersions = async (modelId, modelName, yearId) => {
+        console.log(`🧩 Cargando versiones para model_id=${modelId}, model_name=${modelName}, year_id=${yearId}`);
+        
         const versions = await fetchData('/api/versions', {
             model_id: modelId,
+            model_name: modelName,
             year_id: yearId
         });
+        
         clearAndInit(selectVersion, "Selecciona una versión");
-        versions.forEach(v => {
-            console.log(`➕ Versión añadida: ${v.name} (id=${v.id})`);
-            const opt = new Option(v.name, v.id);
+        
+        if (versions && versions.length > 0) {
+            console.log(`📦 ${versions.length} versiones encontradas:`, versions);
+            versions.forEach(v => {
+                console.log(`➕ Versión añadida: ${v.name} (id=${v.id})`);
+                const opt = new Option(v.name, v.id);
+                selectVersion.appendChild(opt);
+            });
+        } else {
+            console.log("ℹ️ No se encontraron versiones para los criterios seleccionados");
+            const opt = new Option("No hay versiones disponibles", "");
             selectVersion.appendChild(opt);
-        });
+        }
     };
 
     if (selectBrand) {
@@ -95,10 +124,11 @@ setTimeout(() => {
     if (selectModel) {
         selectModel.addEventListener("change", (e) => {
             const modelId = e.target.value;
+            const modelName = e.target.options[e.target.selectedIndex].text;
             const yearId = selectYear.value;
-            console.log(`📌 Cambio en selectModel: model_id=${modelId}, year_id=${yearId}`);
+            console.log(`📌 Cambio en selectModel: model_id=${modelId}, model_name=${modelName}, year_id=${yearId}`);
             if (modelId && yearId) {
-                loadVersions(modelId, yearId);
+                loadVersions(modelId, modelName, yearId);
             }
         });
     }

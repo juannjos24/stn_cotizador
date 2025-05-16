@@ -87,16 +87,17 @@ class WebsiteLeadController(http.Controller):
     @http.route('/api/versions', type='json', auth='public', csrf=False)
     def get_versions(self):
         data = request.get_json_data()
-        model_id = data.get('model_id')
+        model_name = data.get('model_name')  # Cambiamos a recibir el nombre en lugar del ID
         year_id = data.get('year_id')
 
-        _logger.info("📥 [API] Request a /api/versions con model_id=%s, year_id=%s", model_id, year_id)
+        _logger.info("📥 [API] Request a /api/versions con model_name=%s, year_id=%s", model_name, year_id)
 
-        if not (model_id and year_id):
+        if not (model_name and year_id):
             return {'jsonrpc': '2.0', 'id': None, 'result': []}
 
+        # Buscar versiones donde el nombre del modelo coincida y el año sea el correcto
         versions = request.env['car.version'].sudo().search([
-            ('model_id', '=', int(model_id)),
+            ('model_id.name', '=', model_name),
             ('year_id', '=', int(year_id))
         ])
 
