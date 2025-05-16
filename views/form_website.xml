@@ -38,43 +38,42 @@
         <form action="/website_lead/submit" method="POST" class="form-horizontal">
           <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 
-        <!-- Marca -->
-        <div class="form-group">
-          <label class="form-label fw-bold">Marca</label>
-          <select name="brand_id" id="brand-select" class="form-control" required="required">
-            <option value="">Selecciona una marca</option>
-            <t t-foreach="brands" t-as="brand">
-              <option t-att-value="brand.id">
-                <t t-esc="brand.name"/>
-              </option>
-            </t>
-          </select>
-        </div>
-        
-        <!-- Modelo -->
-        <div class="form-group">
-          <label class="form-label fw-bold">Modelo</label>
-          <select name="model_id" id="model-select" class="form-control" required="required">
-            <option value="">Selecciona un modelo</option>
-            <!-- Este se llenará dinámicamente con JS -->
-          </select>
-        </div>
-        
-        <!-- Año -->
-        <div class="form-group">
-          <label class="form-label fw-bold">Año</label>
-          <select name="year_id" id="year-select" class="form-control" required="required">
-            <option value="">Selecciona un año</option>
-          </select>
-        </div>
+           <!-- Marca -->
+           <div class="form-group">
+            <label class="form-label fw-bold">Marca</label>
+            <select name="brand_id" id="brand-select" class="form-control" required="required">
+              <option value="">Selecciona una marca</option>
+              <t t-foreach="brands" t-as="brand">
+                <option t-att-value="brand.id">
+                  <t t-esc="brand.name"/>
+                </option>
+              </t>
+            </select>
+          </div>
+          
+          <!-- Año -->
+          <div class="form-group">
+            <label class="form-label fw-bold">Año</label>
+            <select name="year_id" id="year-select" class="form-control" required="required">
+              <option value="">Selecciona un año</option>
+            </select>
+          </div>
 
-        <!-- Versión -->
-        <div class="form-group">
-          <label class="form-label fw-bold">Versión</label>
-          <select name="version_id" id="version-select" class="form-control" required="required">
-            <option value="">Selecciona una versión</option>
-          </select>
-        </div>
+          <!-- Modelo -->
+          <div class="form-group">
+            <label class="form-label fw-bold">Modelo</label>
+            <select name="model_id" id="model-select" class="form-control" required="required">
+              <option value="">Selecciona un modelo</option>
+            </select>
+          </div>
+
+          <!-- Versión -->
+          <div class="form-group">
+            <label class="form-label fw-bold">Versión</label>
+            <select name="version_id" id="version-select" class="form-control" required="required">
+              <option value="">Selecciona una versión</option>
+            </select>
+          </div>
 
         <div class="text-center mt-3">
             <button type="submit" class="btn btn-danger btn-lg">Enviar 🚀</button>

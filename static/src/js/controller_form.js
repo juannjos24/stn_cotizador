@@ -25,26 +25,13 @@ setTimeout(() => {
             console.error("❌ La propiedad `result` no es una lista:", json);
             return [];
         }
-        return json.result;  // ✅ aquí sí accedes correctamente
-    };
-    
-    const loadModels = async (brandId) => {
-        console.log("🔄 Solicitando modelos para brand_id=" + brandId);
-        const models = await fetchData('/api/models', { brand_id: brandId });
-        clearAndInit(selectModel, "Selecciona un modelo");
-        clearAndInit(selectYear, "Selecciona un año");
-        clearAndInit(selectVersion, "Selecciona una versión");
-        console.log("📥 Modelos recibidos:", models);
-        models.forEach(m => {
-            const opt = new Option(m.name, m.id);
-            selectModel.appendChild(opt);
-        });
+        return json.result;
     };
 
-    const loadYear = async (modelId) => {
-        console.log("🔄 Solicitando año para model_id=" + modelId);
-        const years = await fetchData('/api/years', { model_id: modelId });
+    const loadYearsByBrand = async (brandId) => {
+        const years = await fetchData('/api/brand-years', { brand_id: brandId });
         clearAndInit(selectYear, "Selecciona un año");
+        clearAndInit(selectModel, "Selecciona un modelo");
         clearAndInit(selectVersion, "Selecciona una versión");
         years.forEach(y => {
             const opt = new Option(y.name, y.id);
@@ -52,8 +39,20 @@ setTimeout(() => {
         });
     };
 
+    const loadModelsByBrandAndYear = async (brandId, yearId) => {
+        const models = await fetchData('/api/models-by-brand-year', {
+            brand_id: brandId,
+            year_id: yearId
+        });
+        clearAndInit(selectModel, "Selecciona un modelo");
+        clearAndInit(selectVersion, "Selecciona una versión");
+        models.forEach(m => {
+            const opt = new Option(m.name, m.id);
+            selectModel.appendChild(opt);
+        });
+    };
+
     const loadVersions = async (modelId) => {
-        console.log("🔄 Solicitando versiones para model_id=" + modelId);
         const versions = await fetchData('/api/versions', { model_id: modelId });
         clearAndInit(selectVersion, "Selecciona una versión");
         versions.forEach(v => {
@@ -62,31 +61,38 @@ setTimeout(() => {
         });
     };
 
-    // Cambios manuales en el selector de marca
     if (selectBrand) {
         selectBrand.addEventListener("change", (e) => {
             const brandId = e.target.value;
-            if (brandId) loadModels(brandId);
+            if (brandId) {
+                loadYearsByBrand(brandId);
+            }
         });
     }
 
-    // Cambios en modelo → actualiza año y versiones
+    if (selectYear) {
+        selectYear.addEventListener("change", (e) => {
+            const yearId = e.target.value;
+            const brandId = selectBrand.value;
+            if (yearId && brandId) {
+                loadModelsByBrandAndYear(brandId, yearId);
+            }
+        });
+    }
+
     if (selectModel) {
         selectModel.addEventListener("change", (e) => {
             const modelId = e.target.value;
             if (modelId) {
-                loadYear(modelId);
                 loadVersions(modelId);
             }
         });
     }
 
-    // Soporte para clic en imágenes
     imageButtons.forEach((img) => {
         img.addEventListener("click", () => {
             const brandId = img.dataset.brandId;
             if (brandId) {
-                console.log(`🖱️ Imagen clickeada: brand_id=${brandId}`);
                 selectBrand.value = brandId;
                 selectBrand.dispatchEvent(new Event("change"));
             }
