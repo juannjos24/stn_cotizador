@@ -22,11 +22,17 @@ class WebsiteLeadController(http.Controller):
         year_id = int(post.get('year_id', 0))
         version_id = int(post.get('version_id', 0))
 
-        _logger.info("📩 Formulario enviado: brand_id=%s, year_id=%s, model_id=%s, version_id=%s",
-                     brand_id, year_id, model_id, version_id)
+        customer_name = post.get('customer_name', '').strip()
+        phone = post.get('phone', '').strip()
+        email = post.get('email', '').strip()
+
+        _logger.info("📩 Nuevo lead recibido con nombre=%s, teléfono=%s, email=%s", customer_name, phone, email)
 
         request.env['crm.lead'].sudo().create({
-            'name': 'Solicitud desde sitio web',
+            'name': f'Oportunidad de cotización - {customer_name}',
+            'contact_name': customer_name,
+            'phone': phone,
+            'email_from': email,
             'brand_id': brand_id,
             'year_id': year_id,
             'model_id': model_id,
@@ -34,6 +40,7 @@ class WebsiteLeadController(http.Controller):
         })
 
         return request.redirect('/thank-you')
+
 
     # ✅ Página de gracias
     @http.route('/thank-you', type='http', auth='public', website=True)
@@ -81,8 +88,7 @@ class WebsiteLeadController(http.Controller):
                 unique_models[model.name] = model
 
         return [{'id': m.id, 'name': m.name} for m in unique_models.values()]
-    
-    # 🔁 API: Versiones por modelo
+        
     # 🔁 API: Versiones por modelo (usando IDs)
     @http.route('/api/versions', type='json', auth='public', csrf=False)
     def get_versions(self):

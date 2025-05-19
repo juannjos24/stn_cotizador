@@ -8,39 +8,25 @@ setTimeout(() => {
     const selectModel = document.querySelector("select[name='model_id']");
     const selectYear = document.querySelector("select[name='year_id']");
     const selectVersion = document.querySelector("select[name='version_id']");
+    const extraFieldsSection = document.querySelector("#extra-fields");
 
     const clearAndInit = (select, placeholder) => {
         if (select) {
-            console.log(`🧹 Limpiando <select> y añadiendo placeholder: ${placeholder}`);
             select.innerHTML = `<option value="">${placeholder}</option>`;
         }
     };
 
     const fetchData = async (url, payload) => {
-        console.log(`🔄 Enviando POST a ${url} con payload:`, payload);
         try {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
             });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
             const json = await response.json();
-            console.log(`✅ Respuesta de ${url}:`, json);
-            
-            // Manejar estructura anidada específica de /api/versions
-            if (url === '/api/versions' && json.jsonrpc === "2.0" && json.result && json.result.result) {
-                return json.result.result; // Extraer el array de versiones
-            }
-            // Manejar otros endpoints
-            else if (json.jsonrpc === "2.0" && json.result) {
-                return Array.isArray(json.result) ? json.result : [];
-            }
-            return Array.isArray(json) ? json : [];
+            if (url === '/api/versions' && json.result?.result) return json.result.result;
+            else if (json.result) return Array.isArray(json.result) ? json.result : [];
+            return [];
         } catch (error) {
             console.error(`❌ Error en fetch a ${url}:`, error);
             return [];
@@ -48,76 +34,58 @@ setTimeout(() => {
     };
 
     const loadYearsByBrand = async (brandId) => {
-        console.log(`📅 Cargando años para brand_id=${brandId}`);
         const years = await fetchData('/api/brand-years', { brand_id: brandId });
         clearAndInit(selectYear, "Selecciona un año");
         clearAndInit(selectModel, "Selecciona un modelo");
         clearAndInit(selectVersion, "Selecciona una versión");
         years.forEach(y => {
-            console.log(`➕ Año añadido: ${y.name} (id=${y.id})`);
             const opt = new Option(y.name, y.id);
             selectYear.appendChild(opt);
         });
+        extraFieldsSection?.classList.add("d-none");
     };
 
     const loadModelsByBrandAndYear = async (brandId, yearId) => {
-        console.log(`🚗 Cargando modelos para brand_id=${brandId}, year_id=${yearId}`);
-        const models = await fetchData('/api/models-by-brand-year', {
-            brand_id: brandId,
-            year_id: yearId
-        });
+        const models = await fetchData('/api/models-by-brand-year', { brand_id: brandId, year_id: yearId });
         clearAndInit(selectModel, "Selecciona un modelo");
         clearAndInit(selectVersion, "Selecciona una versión");
         models.forEach(m => {
-            console.log(`➕ Modelo añadido: ${m.name} (id=${m.id})`);
             const opt = new Option(m.name, m.id);
             selectModel.appendChild(opt);
         });
+        extraFieldsSection?.classList.add("d-none");
     };
 
     const loadVersions = async (modelId, modelName, yearId) => {
-        console.log(`🧩 Cargando versiones para model_id=${modelId}, model_name=${modelName}, year_id=${yearId}`);
-        
         const versions = await fetchData('/api/versions', {
             model_id: modelId,
             model_name: modelName,
             year_id: yearId
         });
-        
         clearAndInit(selectVersion, "Selecciona una versión");
-        
-        if (versions && versions.length > 0) {
-            console.log(`📦 ${versions.length} versiones encontradas:`, versions);
+        if (versions.length > 0) {
             versions.forEach(v => {
-                console.log(`➕ Versión añadida: ${v.name} (id=${v.id})`);
                 const opt = new Option(v.name, v.id);
                 selectVersion.appendChild(opt);
             });
         } else {
-            console.log("ℹ️ No se encontraron versiones para los criterios seleccionados");
-            const opt = new Option("No hay versiones disponibles", "");
-            selectVersion.appendChild(opt);
+            selectVersion.appendChild(new Option("No hay versiones disponibles", ""));
         }
+        extraFieldsSection?.classList.add("d-none");
     };
 
     if (selectBrand) {
         selectBrand.addEventListener("change", (e) => {
             const brandId = e.target.value;
-            console.log(`📌 Cambio en selectBrand: brand_id=${brandId}`);
-            if (brandId) {
-                loadYearsByBrand(brandId);
-            }
+            if (brandId) loadYearsByBrand(brandId);
         });
     }
 
     if (selectYear) {
         selectYear.addEventListener("change", (e) => {
-            const yearId = e.target.value;
             const brandId = selectBrand.value;
-            console.log(`📌 Cambio en selectYear: year_id=${yearId}, brand_id=${brandId}`);
-            if (yearId && brandId) {
-                loadModelsByBrandAndYear(brandId, yearId);
-            }
+            const yearId = e.target.value;
+            if (brandId && yearId) loadModelsByBrandAndYear(brandId, yearId);
         });
     }
 
@@ -126,9 +94,16 @@ setTimeout(() => {
             const modelId = e.target.value;
             const modelName = e.target.options[e.target.selectedIndex].text;
             const yearId = selectYear.value;
-            console.log(`📌 Cambio en selectModel: model_id=${modelId}, model_name=${modelName}, year_id=${yearId}`);
-            if (modelId && yearId) {
-                loadVersions(modelId, modelName, yearId);
+            if (modelId && yearId) loadVersions(modelId, modelName, yearId);
+        });
+    }
+
+    if (selectVersion) {
+        selectVersion.addEventListener("change", () => {
+            if (selectVersion.value) {
+                extraFieldsSection?.classList.remove("d-none");
+            } else {
+                extraFieldsSection?.classList.add("d-none");
             }
         });
     }
@@ -136,7 +111,6 @@ setTimeout(() => {
     imageButtons.forEach((img) => {
         img.addEventListener("click", () => {
             const brandId = img.dataset.brandId;
-            console.log(`🖱️ Clic en imagen de marca: brand_id=${brandId}`);
             if (brandId) {
                 selectBrand.value = brandId;
                 selectBrand.dispatchEvent(new Event("change"));
