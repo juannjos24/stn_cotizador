@@ -38,7 +38,6 @@ class WebsiteLeadController(http.Controller):
             'model_id': model_id,
             'version_id': version_id,
         })
-
         return request.redirect('/thank-you')
 
 
@@ -114,8 +113,3 @@ class WebsiteLeadController(http.Controller):
             'id': None,
             'result': [{'id': v.id, 'name': v.name} for v in versions]
         }
-
-
-
-
-

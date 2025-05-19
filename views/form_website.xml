@@ -4,19 +4,74 @@
       <div class="oe_structure">
         <h2 class="text-center text-primary mb-4">🚗 Cotiza tu auto con nosotros</h2>
 
-        <!-- Galería de imágenes -->
+        <!-- Sección de mensaje de éxito (oculta inicialmente) -->
+        <div id="thank-you-message" class="alert alert-success text-center" style="display: none;">
+          <h3>¡Gracias por tu solicitud!</h3>
+          <p>Nos pondremos en contacto contigo a la brevedad.</p>
+          <button id="new-request" class="btn btn-primary">Nueva cotización</button>
+        </div>
+
+        <!-- Galería de imágenes -->               
         <div class="container mb-5">
           <div class="row text-center justify-content-center">
-            <t t-foreach="[('4','Mazda'), ('5','Kia'), ('6','Nissan'), ('7','Volkswagen'), ('8','Hyundai'), ('9','Ford'), ('10','Chevrolet'), ('3','Honda')]" t-as="b">
-              <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
-                <img t-att-src="'/web/image/brand_' + b[0] + '.png'" t-att-data-brand-id="b[0]"
-                     class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
-                     style="cursor:pointer; width: 100px; height: 100px;" t-att-alt="b[1]" />
-              </div>
-            </t>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+              <img id="brand-img-467" src="/web/image/467-0ec3a775/toyota.png" data-brand-id="170"
+                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
+                  style="cursor:pointer; width: 100px; height: 100px;" alt="Toyota"/>
+              <div class="small text-muted mt-2">Toyota</div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+              <img id="brand-img-465" src="/web/image/465-dfdb4ffb/volkswagen.png" data-brand-id="7"
+                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
+                  style="cursor:pointer; width: 100px; height: 100px;" alt="Volkswagen"/>
+              <div class="small text-muted mt-2">Volkswagen</div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+              <img id="brand-img-466" src="/web/image/466-ef2b0257/nissan.png" data-brand-id="6"
+                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
+                  style="cursor:pointer; width: 100px; height: 100px;" alt="Nissan"/>
+              <div class="small text-muted mt-2">Nissan</div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+              <img id="brand-img-461" src="/web/image/461-f187bcdd/mazda.png" data-brand-id="4"
+                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
+                  style="cursor:pointer; width: 100px; height: 100px;" alt="Mazda"/>
+              <div class="small text-muted mt-2">Mazda</div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+              <img id="brand-img-485" src="/web/image/485-a699a499/kia.png" data-brand-id="5"
+                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
+                  style="cursor:pointer; width: 100px; height: 100px;" alt="Kia"/>
+              <div class="small text-muted mt-2">Kia</div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+              <img id="brand-img-487" src="/web/image/487-5af4c6e4/chevrolet.png" data-brand-id="10"
+                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
+                  style="cursor:pointer; width: 100px; height: 100px;" alt="Chevrolet"/>
+              <div class="small text-muted mt-2">Chevrolet</div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+              <img id="brand-img-483" src="/web/image/483-7a5e98c4/ford.png" data-brand-id="9"
+                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
+                  style="cursor:pointer; width: 100px; height: 100px;" alt="Ford"/>
+              <div class="small text-muted mt-2">Ford</div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+              <img id="brand-img-488" src="/web/image/488-6e4b74ec/honda.png" data-brand-id="3"
+                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
+                  style="cursor:pointer; width: 100px; height: 100px;" alt="Honda"/>
+              <div class="small text-muted mt-2">Honda</div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+              <img id="brand-img-484" src="/web/image/484-5974e526/hyundai.png" data-brand-id="8"
+                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
+                  style="cursor:pointer; width: 100px; height: 100px;" alt="Hyundai"/>
+              <div class="small text-muted mt-2">Hyundai</div>
+            </div>
           </div>
         </div>
 
+      
         <!-- Formulario -->
         <form action="/website_lead/submit" method="POST" class="form">
           <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
@@ -74,10 +129,10 @@
             </div>
 
             <div class="text-center">
-              <button type="submit" class="btn btn-primary btn-lg">Enviar solicitud 🚀</button>
+              <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
             </div>
           </div>
-        </form>
+        </form>       
       </div>
     </section>
   </template>

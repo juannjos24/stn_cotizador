@@ -35,8 +35,9 @@ Long description of module's purpose
     
     ],
     'assets': {
-        'web.assets_frontend': [
-            'stn_cotizador/static/src/js/controller_form.js'
+        'web.assets_frontend': [            
+            'stn_cotizador/static/src/js/controller_form.js',
+            
         ], 
     },
     # only loaded in demonstration mode
