@@ -7,11 +7,18 @@ _logger = logging.getLogger(__name__)
 class WebsiteLeadController(http.Controller):
 
     # 🏠 Página principal
+    # En tu controlador
     @http.route('/marca', type='http', auth='public', website=True)
     def render_formulario_en_homepage(self, **kwargs):
         brands = request.env['car.brand'].sudo().search([])
+        # Pasas una variable que indique si mostrar form o gracias
+        show_form = True
+        if request.httprequest.path == '/thank-you' or request.params.get('success') == '1':
+            show_form = False
+
         return request.render('website.homepage_45cfdd', {
             'brands': brands,
+            'show_form': show_form,
         })
 
     # ✅ Guardar formulario
@@ -40,11 +47,10 @@ class WebsiteLeadController(http.Controller):
         })
         return request.redirect('/thank-you')
 
-
     # ✅ Página de gracias
     @http.route('/thank-you', type='http', auth='public', website=True)
     def website_thank_you(self, **kwargs):
-        return request.render('stn_cotizador.website_thank_you_template')
+        return request.render('website.homepage_45cfdd')    
 
     # 🔁 API: Años disponibles para una marca
     @http.route('/api/brand-years', type='json', auth='public')

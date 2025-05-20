@@ -2,14 +2,14 @@
 {
     'name': "Stn Cotizador de Seguro",
 
-    'summary': "Modulo encargado para realizar una cotizacion de seguro, dependiendo del ",
+    'summary': "Modulo encargado para realizar una cotización de seguro.",
 
     'description': """
-Long description of module's purpose
+        Modulo encargado para realizar una cotización de seguro, dependiendo de la marca, el modelo, el año y la versión de los vehículos.
     """,
 
-    'author': "My Company",
-    'website': "https://www.yourcompany.com",
+    'author': "Stones Solutions",
+    'website': "https://www.stones.solutions/",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
@@ -29,7 +29,6 @@ Long description of module's purpose
         'views/car_version.xml',    
         'views/crm_lead_views.xml',
         'views/form_website.xml',
-        'views/website_lead_thank_you.xml',   
         'views/menu_items.xml',        
         'views/templates.xml',
     
@@ -37,7 +36,6 @@ Long description of module's purpose
     'assets': {
         'web.assets_frontend': [            
             'stn_cotizador/static/src/js/controller_form.js',
-            
         ], 
     },
     # only loaded in demonstration mode

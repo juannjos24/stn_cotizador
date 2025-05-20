@@ -8,4 +8,3 @@ class CarBrandYear(models.Model):
 
     brand_id = fields.Many2one('car.brand', string='Marca', required=True)
     year_id = fields.Many2one('car.year', string='Año', required=True)
-

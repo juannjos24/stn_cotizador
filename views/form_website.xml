@@ -1,16 +1,17 @@
 ﻿<odoo>
   <template id="website_lead_form_template" name="Website Lead Form">
-    <section class="oe_container" style="background-color: #ffffff; padding: 40px; margin: 40px auto; width: 85%; border: 1px solid #ccc; border-radius: 15px;">
-      <div class="oe_structure">
-        <h2 class="text-center text-primary mb-4">🚗 Cotiza tu auto con nosotros</h2>
-
-        <!-- Sección de mensaje de éxito (oculta inicialmente) -->
-        <div id="thank-you-message" class="alert alert-success text-center" style="display: none;">
-          <h3>¡Gracias por tu solicitud!</h3>
-          <p>Nos pondremos en contacto contigo a la brevedad.</p>
-          <button id="new-request" class="btn btn-primary">Nueva cotización</button>
-        </div>
-
+    <section  t-if="not show_form" class="oe_container" style="background-color: #ffffff; padding: 40px; margin: 40px auto; width: 85%;">      
+       <!-- Sección de mensaje de éxito (oculta inicialmente) -->
+       <div id="thank-you-message" class="alert alert-success text-center" style="display: none;">
+        <h3>¡Gracias por tu solicitud!</h3>
+        <p>Nos pondremos en contacto contigo a la brevedad.</p>
+        <button id="new-request" class="btn btn-primary">Nueva cotización</button>
+      </div>
+    </section>
+    <section t-if="show_form" id="form-section"  class="oe_container" style="background-color: #ffffff; padding: 40px; margin: 40px auto; width: 85%; border: 1px solid #ccc; border-radius: 15px;">      
+      <div class="oe_structure">       
+      
+        <h2 class="text-center text-primary mb-4">🚗 Cotiza tu auto con nosotros</h2>    
         <!-- Galería de imágenes -->               
         <div class="container mb-5">
           <div class="row text-center justify-content-center">
@@ -70,8 +71,7 @@
             </div>
           </div>
         </div>
-
-      
+        
         <!-- Formulario -->
         <form action="/website_lead/submit" method="POST" class="form">
           <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
