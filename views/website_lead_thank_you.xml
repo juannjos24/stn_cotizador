@@ -1,0 +1,11 @@
+﻿<odoo>
+    <template id="website_thank_you_template" name="Thank You">
+      <section class="oe_container">
+        <div class="oe_structure">
+          <h2 class="text-center">Gracias por tu solicitud</h2>
+          <p class="text-center">En breve nos pondremos en contacto contigo.</p>
+        </div>
+      </section>
+    </template>
+  </odoo>
+  

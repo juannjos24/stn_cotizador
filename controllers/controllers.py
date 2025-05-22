@@ -32,14 +32,17 @@ class WebsiteLeadController(http.Controller):
         customer_name = post.get('customer_name', '').strip()
         phone = post.get('phone', '').strip()
         email = post.get('email', '').strip()
+        codigo_postal = post.get('codigo_postal', '').strip()
 
-        _logger.info("📩 Nuevo lead recibido con nombre=%s, teléfono=%s, email=%s", customer_name, phone, email)
+        _logger.info("📩 Nuevo lead recibido con nombre=%s, teléfono=%s, email=%s, codigo_postal=%s", customer_name, phone, email,codigo_postal)
 
         request.env['crm.lead'].sudo().create({
             'name': f'Oportunidad de cotización - {customer_name}',
             'contact_name': customer_name,
             'phone': phone,
             'email_from': email,
+            'codigo_postal': codigo_postal,
+            'zip': codigo_postal,
             'brand_id': brand_id,
             'year_id': year_id,
             'model_id': model_id,

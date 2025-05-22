@@ -2,7 +2,8 @@
 
 class CrmLead(models.Model):
     _inherit = 'crm.lead'
-
+    
+    codigo_postal = fields.Char(string="Codigo Postal")
     brand_id = fields.Many2one('car.brand', string='Marca')
     model_id = fields.Many2one('car.model', string='Modelo')
     year_id = fields.Many2one('car.year', string='Año')
@@ -32,7 +33,6 @@ class CrmLead(models.Model):
         print(f"🔁 Modelo seleccionado: {self.model_id.name if self.model_id else 'None'}")
         print(f"📦 Dominio años: {domain}")
         return {'domain': {'year_id': domain}}
-
 
     @api.onchange('year_id')
     def _onchange_year(self):

@@ -8,7 +8,7 @@
         Modulo encargado para realizar una cotización de seguro, dependiendo de la marca, el modelo, el año y la versión de los vehículos.
     """,
 
-    'author': "Stones Solutions",
+    'author': "Juan Jose Moreno",
     'website': "https://www.stones.solutions/",
 
     # Categories can be used to filter modules in modules listing
