@@ -1,6 +1,9 @@
 from odoo import http
 from odoo.http import request
 import logging
+import json
+from odoo import http
+from odoo.http import request
 
 _logger = logging.getLogger(__name__)
 
@@ -33,6 +36,7 @@ class WebsiteLeadController(http.Controller):
         phone = post.get('phone', '').strip()
         email = post.get('email', '').strip()
         codigo_postal = post.get('codigo_postal', '').strip()
+        type_cobertura = post.get('type_cobertura', '').strip()
 
         _logger.info("📩 Nuevo lead recibido con nombre=%s, teléfono=%s, email=%s, codigo_postal=%s", customer_name, phone, email,codigo_postal)
 
@@ -47,6 +51,7 @@ class WebsiteLeadController(http.Controller):
             'year_id': year_id,
             'model_id': model_id,
             'version_id': version_id,
+            'type_cobertura': type_cobertura
         })
         return request.redirect('/thank-you')
 

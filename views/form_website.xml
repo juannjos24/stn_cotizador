@@ -132,6 +132,30 @@
               <label class="fw-bold">C.P</label>
               <input type="text" name="codigo_postal" class="form-control" placeholder="Codigo Postal" required="True" />
             </div>
+             <!-- TIPO COBERTURA -->
+            <div class="text-center mt-4">
+              <h5 class="fw-bold mb-3">Selecciona el tipo de cobertura</h5>
+              <input type="hidden" name="type_cobertura" id="type_cobertura"/>
+
+              <div class="row g-3 justify-content-center" id="coverage-cards">
+                <div class="col-10 col-md-4">
+                  <div class="card coverage-option h-100 border border-2" data-value="BÁSICO">
+                    <img src="/web/image/1246-ccd6f175/AC%20BÁSICO.webp" class="card-img-top img-fluid rounded" alt="AC BÁSICO" />
+                  </div>
+                </div>
+                <div class="col-10 col-md-4">
+                  <div class="card coverage-option h-100 border border-2" data-value="AMPLIA">
+                    <img src="/web/image/1248-450ee22f/AC%20Amplia.webp" class="card-img-top img-fluid rounded" alt="AC AMPLIA" />
+                  </div>
+                </div>
+                <div class="col-10 col-md-4">
+                  <div class="card coverage-option h-100 border border-2" data-value="LIMITADO">
+                    <img src="/web/image/1247-474da96e/AC%20LIMITADO.webp" class="card-img-top img-fluid rounded" alt="AC LIMITADO" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
             <div class="text-center">
               <button type="submit" class="btn btn-primary btn-lg">Enviar</button>

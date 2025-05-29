@@ -1,6 +1,4 @@
-﻿/** @odoo-module **/
-
-console.log("🟢 [brand_selector.js] Script cargado correctamente");
+﻿console.log("🟢 Script de cotización cargado correctamente");
 
 setTimeout(() => {
     const imageButtons = document.querySelectorAll("[data-brand-id]");
@@ -117,5 +115,17 @@ setTimeout(() => {
             }
         });
     });
-}, 500);
 
+    // 🟩 Selección de tipo de cobertura
+    const coverageCards = document.querySelectorAll(".coverage-option");
+    const coverageInput = document.querySelector("#type_cobertura");
+
+    coverageCards.forEach(card => {
+        card.addEventListener("click", () => {
+            coverageCards.forEach(c => c.classList.remove("border-primary", "border-3"));
+            card.classList.add("border-primary", "border-3");
+            coverageInput.value = card.dataset.value;
+        });
+    });
+
+}, 500);

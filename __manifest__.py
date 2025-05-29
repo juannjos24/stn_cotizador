@@ -18,7 +18,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','crm'],
+    'depends': ['base','crm','whatsapp'],
 
     # always loaded
     'data': [
@@ -33,6 +33,9 @@
         'views/templates.xml',
     
     ],
+    'images': ['static/description/icon.png'],  # Ruta a tu imagen
+    'installable': True,
+    'application': True,
     'assets': {
         'web.assets_frontend': [            
             'stn_cotizador/static/src/js/controller_form.js',

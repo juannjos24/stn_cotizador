@@ -2,7 +2,7 @@
     <data>
   
       <!-- Menú principal -->
-      <menuitem name="Vehiculos" id="menu_servicios_root"/>
+      <menuitem name="Vehiculos" id="menu_servicios_root"  web_icon="stn_cotizador,static/description/icon.png"/>
       <!-- Categoría: Configuración -->
     
       <menuitem name="Configuración" id="configuracion_menu"

@@ -13,6 +13,7 @@
             <field name="year_id" options="{'no_create': True}" domain="[('id', '=', model_id.year_id)]"/>
             <field name="version_id" options="{'no_create': True}" domain="[('model_id', '=', model_id)]"/>
             <field name="codigo_postal"/>
+            <field name="type_cobertura"/>
           </group>
         </xpath>        
       </field>

@@ -8,6 +8,7 @@ class CrmLead(models.Model):
     model_id = fields.Many2one('car.model', string='Modelo')
     year_id = fields.Many2one('car.year', string='Año')
     version_id = fields.Many2one('car.version', string='Versión')
+    type_cobertura = fields.Char(string='Tipo Cobertura')
 
     @api.onchange('brand_id')
     def _onchange_brand(self):
