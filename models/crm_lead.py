@@ -1,5 +1,6 @@
 ﻿from odoo import models, fields, api
 
+
 class CrmLead(models.Model):
     _inherit = 'crm.lead'
     
@@ -9,6 +10,9 @@ class CrmLead(models.Model):
     year_id = fields.Many2one('car.year', string='Año')
     version_id = fields.Many2one('car.version', string='Versión')
     type_cobertura = fields.Char(string='Tipo Cobertura')
+    
+    file_qty = fields.Binary(string="Archivo de Cotizacion")
+    imagen_converter = fields.Binary(string="Imagen del PDF")
 
     @api.onchange('brand_id')
     def _onchange_brand(self):

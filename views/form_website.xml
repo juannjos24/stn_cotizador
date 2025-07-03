@@ -1,80 +1,83 @@
 ﻿<odoo>
   <template id="website_lead_form_template" name="Website Lead Form">
-    <section  t-if="not show_form" class="oe_container" style="background-color: #ffffff; padding: 40px; margin: 40px auto; width: 85%;">      
-       <!-- Sección de mensaje de éxito (oculta inicialmente) -->
-       <div id="thank-you-message" class="alert alert-success text-center" style="display: none;">
+    <section t-if="not show_form" class="oe_container"
+      style="background-color: #ffffff; padding: 40px; margin: 40px auto; width: 85%;">
+      <!-- Sección de mensaje de éxito (oculta inicialmente) -->
+      <div id="thank-you-message" class="alert alert-success text-center" style="display: none;">
         <h3>¡Gracias por tu solicitud!</h3>
         <p>Nos pondremos en contacto contigo a la brevedad.</p>
         <button id="new-request" class="btn btn-primary">Nueva cotización</button>
       </div>
     </section>
-    <section t-if="show_form" id="form-section"  class="oe_container" style="background-color: #ffffff; padding: 40px; margin: 40px auto; width: 85%; border: 1px solid #ccc; border-radius: 15px;">      
-      <div class="oe_structure">       
-      
-        <h2 class="text-center text-primary mb-4">🚗 Cotiza tu auto con nosotros</h2>    
-        <!-- Galería de imágenes -->               
+    <section t-if="show_form" id="form-section" class="oe_container"
+      style="background-color: #ffffff; padding: 40px; margin: 40px auto; width: 85%; border: 1px solid #ccc; border-radius: 15px;">
+      <div class="oe_structure">
+        <!-- Galería de imágenes -->
         <div class="container mb-5">
           <div class="row text-center justify-content-center">
             <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
-              <img id="brand-img-467" src="/web/image/467-0ec3a775/toyota.png" data-brand-id="170"
-                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
-                  style="cursor:pointer; width: 100px; height: 100px;" alt="Toyota"/>
+              <img src="/web/image/467-0ec3a775/toyota.png"
+                class="img-fluid rounded-circle p-2 brand-img"
+                style="cursor:pointer; width: 150px; height: 150px; object-fit: none;" />
               <div class="small text-muted mt-2">Toyota</div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
               <img id="brand-img-465" src="/web/image/465-dfdb4ffb/volkswagen.png" data-brand-id="7"
-                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
-                  style="cursor:pointer; width: 100px; height: 100px;" alt="Volkswagen"/>
+                class="img-fluid rounded-circle p-2 brand-img"
+                style="cursor:pointer; width: 150px; height: 150px; object-fit: none;"
+                alt="Volkswagen" />
               <div class="small text-muted mt-2">Volkswagen</div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
               <img id="brand-img-466" src="/web/image/466-ef2b0257/nissan.png" data-brand-id="6"
-                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
-                  style="cursor:pointer; width: 100px; height: 100px;" alt="Nissan"/>
+                class="img-fluid rounded-circle p-2 brand-img"
+                style="cursor:pointer; width: 150px; height: 150px; object-fit: none;" alt="Nissan" />
               <div class="small text-muted mt-2">Nissan</div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
               <img id="brand-img-461" src="/web/image/461-f187bcdd/mazda.png" data-brand-id="4"
-                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
-                  style="cursor:pointer; width: 100px; height: 100px;" alt="Mazda"/>
+                class="img-fluid rounded-circle p-2 brand-img"
+                style="cursor:pointer; width: 150px; height: 150px; object-fit: none;" alt="Mazda" />
               <div class="small text-muted mt-2">Mazda</div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
               <img id="brand-img-485" src="/web/image/485-a699a499/kia.png" data-brand-id="5"
-                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
-                  style="cursor:pointer; width: 100px; height: 100px;" alt="Kia"/>
+                class="img-fluid rounded-circle p-2 brand-img"
+                style="cursor:pointer; width: 150px; height: 150px; object-fit: none;" alt="Kia" />
               <div class="small text-muted mt-2">Kia</div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
               <img id="brand-img-487" src="/web/image/487-5af4c6e4/chevrolet.png" data-brand-id="10"
-                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
-                  style="cursor:pointer; width: 100px; height: 100px;" alt="Chevrolet"/>
+                class="img-fluid rounded-circle p-2 brand-img"
+                style="cursor:pointer; width: 150px; height: 150px; object-fit: none;"
+                alt="Chevrolet" />
               <div class="small text-muted mt-2">Chevrolet</div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
               <img id="brand-img-483" src="/web/image/483-7a5e98c4/ford.png" data-brand-id="9"
-                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
-                  style="cursor:pointer; width: 100px; height: 100px;" alt="Ford"/>
+                class="img-fluid rounded-circle p-2 brand-img"
+                style="cursor:pointer; width: 150px; height: 150px; object-fit: none;" alt="Ford" />
               <div class="small text-muted mt-2">Ford</div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
               <img id="brand-img-488" src="/web/image/488-6e4b74ec/honda.png" data-brand-id="3"
-                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
-                  style="cursor:pointer; width: 100px; height: 100px;" alt="Honda"/>
+                class="img-fluid rounded-circle p-2 brand-img"
+                style="cursor:pointer; width: 150px; height: 150px; object-fit: none;" alt="Honda" />
               <div class="small text-muted mt-2">Honda</div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
               <img id="brand-img-484" src="/web/image/484-5974e526/hyundai.png" data-brand-id="8"
-                  class="img-fluid shadow rounded-circle border border-dark p-2 brand-img"
-                  style="cursor:pointer; width: 100px; height: 100px;" alt="Hyundai"/>
+                class="img-fluid rounded-circle p-2 brand-img"
+                style="cursor:pointer; width: 150px; height: 150px; object-fit: none;" alt="Hyundai" />
               <div class="small text-muted mt-2">Hyundai</div>
             </div>
           </div>
         </div>
-        
+        <!-- Fin -->
+
         <!-- Formulario -->
-        <form action="/website_lead/submit" method="POST" class="form">
-          <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+        <form action="/website_lead/submit" method="POST" class="form" id="formulario_carros">
+          <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
 
           <!-- Marca -->
           <div class="form-group mb-3">
@@ -82,7 +85,9 @@
             <select name="brand_id" class="form-control" required="True">
               <option value="">Selecciona una marca</option>
               <t t-foreach="brands" t-as="brand">
-                <option t-att-value="brand.id"><t t-esc="brand.name"/></option>
+                <option t-att-value="brand.id">
+                  <t t-esc="brand.name" />
+                </option>
               </t>
             </select>
           </div>
@@ -115,42 +120,49 @@
           <div id="extra-fields" class="d-none">
             <div class="form-group mb-3">
               <label class="fw-bold">Nombre completo</label>
-              <input type="text" name="customer_name" class="form-control" placeholder="Nombre completo" required="True"/>
+              <input type="text" name="customer_name" class="form-control"
+                placeholder="Nombre completo" required="True" />
             </div>
 
             <div class="form-group mb-3">
               <label class="fw-bold">Teléfono</label>
-              <input type="tel" name="phone" class="form-control" placeholder="Teléfono" required="True"/>
+              <input type="tel" name="phone" class="form-control" placeholder="Teléfono"
+                required="True" />
             </div>
 
             <div class="form-group mb-4">
               <label class="fw-bold">Correo electrónico</label>
-              <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required="True"/>
+              <input type="email" name="email" class="form-control" placeholder="Correo electrónico"
+                required="True" />
             </div>
 
             <div class="form-group mb-4">
               <label class="fw-bold">C.P</label>
-              <input type="text" name="codigo_postal" class="form-control" placeholder="Codigo Postal" required="True" />
+              <input type="text" name="codigo_postal" class="form-control"
+                placeholder="Codigo Postal" required="True" />
             </div>
-             <!-- TIPO COBERTURA -->
+            <!-- TIPO COBERTURA -->
             <div class="text-center mt-4">
               <h5 class="fw-bold mb-3">Selecciona el tipo de cobertura</h5>
-              <input type="hidden" name="type_cobertura" id="type_cobertura"/>
+              <input type="hidden" name="type_cobertura" id="type_cobertura" />
 
               <div class="row g-3 justify-content-center" id="coverage-cards">
                 <div class="col-10 col-md-4">
                   <div class="card coverage-option h-100 border border-2" data-value="BÁSICO">
-                    <img src="/web/image/1246-ccd6f175/AC%20BÁSICO.webp" class="card-img-top img-fluid rounded" alt="AC BÁSICO" />
+                    <img src="/web/image/1246-ccd6f175/AC%20BÁSICO.webp"
+                      class="card-img-top img-fluid rounded" alt="AC BÁSICO" />
                   </div>
                 </div>
                 <div class="col-10 col-md-4">
                   <div class="card coverage-option h-100 border border-2" data-value="AMPLIA">
-                    <img src="/web/image/1248-450ee22f/AC%20Amplia.webp" class="card-img-top img-fluid rounded" alt="AC AMPLIA" />
+                    <img src="/web/image/1248-450ee22f/AC%20Amplia.webp"
+                      class="card-img-top img-fluid rounded" alt="AC AMPLIA" />
                   </div>
                 </div>
                 <div class="col-10 col-md-4">
                   <div class="card coverage-option h-100 border border-2" data-value="LIMITADO">
-                    <img src="/web/image/1247-474da96e/AC%20LIMITADO.webp" class="card-img-top img-fluid rounded" alt="AC LIMITADO" />
+                    <img src="/web/image/1247-474da96e/AC%20LIMITADO.webp"
+                      class="card-img-top img-fluid rounded" alt="AC LIMITADO" />
                   </div>
                 </div>
               </div>
@@ -161,7 +173,7 @@
               <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
             </div>
           </div>
-        </form>       
+        </form>
       </div>
     </section>
   </template>

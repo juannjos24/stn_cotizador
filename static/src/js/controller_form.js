@@ -6,7 +6,8 @@ setTimeout(() => {
     const selectModel = document.querySelector("select[name='model_id']");
     const selectYear = document.querySelector("select[name='year_id']");
     const selectVersion = document.querySelector("select[name='version_id']");
-    const extraFieldsSection = document.querySelector("#extra-fields");
+    const extraFieldsSection = document.querySelector("#extra-fields");    
+
 
     const clearAndInit = (select, placeholder) => {
         if (select) {
@@ -84,6 +85,7 @@ setTimeout(() => {
             const brandId = selectBrand.value;
             const yearId = e.target.value;
             if (brandId && yearId) loadModelsByBrandAndYear(brandId, yearId);
+            //console.log();
         });
     }
 
@@ -127,5 +129,37 @@ setTimeout(() => {
             coverageInput.value = card.dataset.value;
         });
     });
+
+    // 🟦 Selección visual de marca con efecto y scroll al formulario
+    const brandImages = document.querySelectorAll(".brand-img");
+
+    brandImages.forEach(img => {
+        img.addEventListener("click", () => {
+            brandImages.forEach(i => {
+                i.classList.remove("border-primary", "border-3", "shadow-lg");
+            });
+
+            // Estilo al seleccionado
+            img.classList.remove("border-dark");
+            img.classList.add("border-primary", "border-3", "shadow-lg");
+
+
+            // Hacer scroll al formulario
+            const formulario = document.getElementById("formulario_carros");
+            if (formulario) {
+                formulario.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+
+            // Opcional: si quieres seleccionar la marca en el select también
+            const brandId = img.dataset.brandId;
+            const selectBrand = document.querySelector("select[name='brand_id']");
+            if (selectBrand && brandId) {
+                selectBrand.value = brandId;
+                selectBrand.dispatchEvent(new Event("change"));  // si necesitas activar el cambio
+            }
+        });
+    });
+
+
 
 }, 500);

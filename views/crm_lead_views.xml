@@ -14,6 +14,8 @@
             <field name="version_id" options="{'no_create': True}" domain="[('model_id', '=', model_id)]"/>
             <field name="codigo_postal"/>
             <field name="type_cobertura"/>
+            <field name="file_qty"/>
+            <field name="imagen_converter" widget="image" />
           </group>
         </xpath>        
       </field>
