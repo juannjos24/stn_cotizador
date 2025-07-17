@@ -89,7 +89,7 @@ class WebsiteLeadController(http.Controller):
             _logger.info("✅ ID del Lead Creadp: %s", lead.id)
             msg = request.env['whatsapp.composer'].sudo().create({
                 'phone': phone,
-                'wa_template_id': 36,               
+                'wa_template_id': 34,               
                 'res_model': 'crm.lead',
                 'res_ids': [lead.id],                
             })
