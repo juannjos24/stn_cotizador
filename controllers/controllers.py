@@ -93,7 +93,7 @@ class WebsiteLeadController(http.Controller):
                 'res_model': 'crm.lead',
                 'res_ids': [lead.id],                
             })
-            #msg.action_send_whatsapp_template()            
+            msg.action_send_whatsapp_template()            
             try:
                 result = msg.action_send_whatsapp_template()
                 _logger.info("✅ WhatsApp enviado correctamente. Resultado: %s", result)
