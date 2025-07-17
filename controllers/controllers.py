@@ -91,9 +91,17 @@ class WebsiteLeadController(http.Controller):
                 'phone': phone,
                 'wa_template_id': 44,               
                 'res_model': 'crm.lead',
-                'res_ids': [lead.id],                
+                'res_ids': [lead.id],
             })
-            msg.action_send_whatsapp_template()            
+            attachments = self._get_attachments()
+            attachment = attachments[0]  # <- Aquí truena si attachments está vacío
+            if not attachments:
+                _logger.error("No hay archivos adjuntos para enviar en WhatsApp.")
+                # Opcional: enviar sin adjunto, o lanzar otro error más claro
+            else:
+                attachment = attachments[0]
+
+            #msg.action_send_whatsapp_template()            
             try:
                 result = msg.action_send_whatsapp_template()
                 _logger.info("✅ WhatsApp enviado correctamente. Resultado: %s", result)
